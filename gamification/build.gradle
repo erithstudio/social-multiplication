@@ -27,6 +27,8 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    implementation project(':social-common')
 }
 
 //dependencies {

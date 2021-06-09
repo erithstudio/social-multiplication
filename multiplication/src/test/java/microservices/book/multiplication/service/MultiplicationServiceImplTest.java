@@ -1,26 +1,24 @@
 package microservices.book.multiplication.service;
 
+import microservices.book.common.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 import microservices.book.multiplication.domain.User;
 import microservices.book.multiplication.event.EventDispatcher;
-import microservices.book.multiplication.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservices.book.multiplication.repository.UserRepository;
-import microservices.book.multiplication.service.MultiplicationServiceImpl;
-import microservices.book.multiplication.service.RandomGeneratorService;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.Matchers.eq;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 public class MultiplicationServiceImplTest {

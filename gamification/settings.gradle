@@ -1,1 +1,3 @@
 rootProject.name = 'gamification'
+
+include('social-common')

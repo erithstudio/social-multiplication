@@ -14,8 +14,7 @@ import java.io.IOException;
  * Deserializes an attempt coming from the Multiplication microservice
  * into the Gamification's representation of an attempt.
  */
-public class MultiplicationResultAttemptDeserializer
-        extends JsonDeserializer<MultiplicationResultAttempt> {
+public class MultiplicationResultAttemptDeserializer extends JsonDeserializer<MultiplicationResultAttempt> {
 
     @Override
     public MultiplicationResultAttempt deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {

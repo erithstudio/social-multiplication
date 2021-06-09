@@ -1,4 +1,4 @@
 rootProject.name = 'social-multiplication'
 
-include("multiplication", "gamification")
+include("multiplication", "gamification", "social-common")
 

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import microservices.book.common.event.*;
+
 /**
  * Handles the communication with the Event Bus.
  */
