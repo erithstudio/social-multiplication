@@ -108,7 +108,7 @@ public class GameServiceImplTest {
 
         // assert - should score one card and win the badge LUCKY NUMBER
         assertThat(iteration.getScore()).isEqualTo(ScoreCard.DEFAULT_SCORE);
-        // assertThat(iteration.getBadges()).containsOnly(Badge.LUCKY_NUMBER);
+        assertThat(iteration.getBadges()).containsOnly(Badge.LUCKY_NUMBER);
     }
 
     @Test
