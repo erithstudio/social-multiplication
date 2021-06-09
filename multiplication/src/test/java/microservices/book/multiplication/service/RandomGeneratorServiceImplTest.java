@@ -1,5 +1,6 @@
 package microservices.book.multiplication.service;
 
+import microservices.book.multiplication.service.RandomGeneratorServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 

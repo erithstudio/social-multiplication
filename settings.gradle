@@ -1,3 +1,4 @@
 rootProject.name = 'social-multiplication'
 
-include("multiplication")
+include("multiplication", "gamification")
+
