@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.0'
+    id 'org.springframework.boot' version '2.3.12.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -17,12 +17,12 @@ ext {
 }
 
 dependencies {
-    implementation 'junit:junit:4.12'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-zuul', version: '1.4.7.RELEASE'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 dependencyManagement {
@@ -32,5 +32,5 @@ dependencyManagement {
 }
 
 //test {
-//	useJUnitPlatform()
+//    useJUnitPlatform()
 //}

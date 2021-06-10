@@ -1,13 +1,18 @@
 server:
   port: 8080
+
+spring:
+  main:
+    banner-mode: off
+
 zuul:
   prefix: /api
   routes:
-  multiplications:
-  path: /multiplications/**
-  url: http://localhost:8081/multiplications
-  results:
-    path: /results/**
+    multiplications:
+      path: /multiplications/**
+      url: http://localhost:8081/multiplications
+    results:
+      path: /results/**
       url: http://localhost:8081/results
     leaders:
       path: /leaders/**
@@ -15,9 +20,11 @@ zuul:
     stats:
       path: /stats/**
       url: http://localhost:8082/stats
-    endpoints:
-      trace:
+
+  endpoints:
+    trace:
       sensitive: false
-    ribbon:
-      eureka:
+
+  ribbon:
+    eureka:
       enabled: false
