@@ -1,4 +1,4 @@
-package microservices.template.gateway.configuration;
+package microservices.template.apigateway.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

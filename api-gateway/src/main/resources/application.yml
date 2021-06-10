@@ -23,7 +23,7 @@ zuul:
 
   endpoints:
     trace:
-      sensitive: false
+      sensitive: true
 
   ribbon:
     eureka:
