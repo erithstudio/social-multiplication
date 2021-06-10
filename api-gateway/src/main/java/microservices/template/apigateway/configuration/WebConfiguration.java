@@ -21,6 +21,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
+        System.out.println("::::::::: addCorsMappings C");
         registry.addMapping("/**");
     }
 }
