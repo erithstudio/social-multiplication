@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 /**
- * @author moises.macero
+ * @author denis.prasetio
  */
 public class LeaderBoardServiceImplTest {
 

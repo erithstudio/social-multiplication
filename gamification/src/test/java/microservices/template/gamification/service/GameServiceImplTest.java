@@ -20,7 +20,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyLong;
 
 /**
- * @author moises.macero
+ * @author denis.prasetio
  */
 public class GameServiceImplTest {
 
