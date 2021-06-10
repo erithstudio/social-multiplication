@@ -1,7 +1,6 @@
 package microservices.template.gamification.client;
 
-import microservices.template.gamification.client.dto.
-        MultiplicationResultAttempt;
+import microservices.template.gamification.client.dto.MultiplicationResultAttempt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
