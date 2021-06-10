@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.3'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-ribbon', version: '1.4.7.RELEASE'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
