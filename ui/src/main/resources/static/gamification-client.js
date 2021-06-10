@@ -34,7 +34,10 @@ function updateStats(userId) {
 
 $(document).ready(function () {
     $.ajaxSetup({
-        headers: { 'Access-Control-Allow-Headers': 'x-requested-with' }
+        headers: {
+            'Access-Control-Allow-Headers': 'Accept',
+            'Sec-Fetch-Site': 'cross-site'
+        }
     });
 
     updateLeaderBoard();
