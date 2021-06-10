@@ -5,12 +5,14 @@ import microservices.template.gamification.domain.ScoreCard;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Handles CRUD operations with ScoreCards
  */
+@Repository
 public interface ScoreCardRepository extends
         CrudRepository<ScoreCard, Long> {
     /**

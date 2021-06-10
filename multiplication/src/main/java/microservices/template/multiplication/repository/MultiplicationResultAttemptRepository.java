@@ -2,12 +2,14 @@ package microservices.template.multiplication.repository;
 
 import microservices.template.multiplication.domain.MultiplicationResultAttempt;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * This interface allow us to store and retrieve attempts
  */
+@Repository
 public interface MultiplicationResultAttemptRepository
         extends CrudRepository<MultiplicationResultAttempt, Long> {
     /**
