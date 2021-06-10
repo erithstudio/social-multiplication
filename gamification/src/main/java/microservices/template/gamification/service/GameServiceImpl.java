@@ -1,6 +1,7 @@
 package microservices.template.gamification.service;
 
 import lombok.extern.slf4j.Slf4j;
+import microservices.template.gamification.client.MultiplicationApi;
 import microservices.template.gamification.client.MultiplicationResultAttemptClient;
 import microservices.template.gamification.client.dto.MultiplicationResultAttempt;
 import microservices.template.gamification.domain.Badge;
@@ -9,6 +10,7 @@ import microservices.template.gamification.domain.GameStats;
 import microservices.template.gamification.domain.ScoreCard;
 import microservices.template.gamification.repository.BadgeCardRepository;
 import microservices.template.gamification.repository.ScoreCardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class GameServiceImpl implements GameService {
     private ScoreCardRepository scoreCardRepository;
     private BadgeCardRepository badgeCardRepository;
     private MultiplicationResultAttemptClient attemptClient;
+
+    @Autowired
+    private MultiplicationApi multiplicationApi;
 
     GameServiceImpl(ScoreCardRepository scoreCardRepository,
                     BadgeCardRepository badgeCardRepository,
@@ -67,7 +72,11 @@ public class GameServiceImpl implements GameService {
             badgeCards.add(firstWonBadge);
         }
         // Lucky number badge
-        MultiplicationResultAttempt attempt = attemptClient.retrieveMultiplicationResultAttemptbyId(attemptId);
+        // SAMPLE FEIGN
+        // MultiplicationResultAttempt attempt = attemptClient.retrieveMultiplicationResultAttemptbyId(attemptId);
+        log.info(":: SAMPLE FEIGN");
+        MultiplicationResultAttempt attempt = multiplicationApi.retrieveMultiplicationResultAttemptbyId(attemptId);
+
         if (!containsBadge(badgeCardList, Badge.LUCKY_NUMBER)
                 && (LUCKY_NUMBER == attempt.getMultiplicationFactorA()
                 || LUCKY_NUMBER == attempt.getMultiplicationFactorB())) {
