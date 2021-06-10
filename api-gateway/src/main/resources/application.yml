@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  mvc:
+    dispatch-options-request: on
   main:
     banner-mode: off
 
