@@ -34,7 +34,7 @@ dependencies {
 
     implementation 'de.codecentric:spring-boot-admin-starter-server'
     implementation 'org.jolokia:jolokia-core'
-    implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.4.6'
+    implementation 'io.projectreactor:reactor-core:3.4.6'
 
     testImplementation 'junit:junit:4.12'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

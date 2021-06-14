@@ -39,12 +39,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()
                 .antMatchers(adminContextPath + "/eureka/**").permitAll()
+                .antMatchers(adminContextPath + "/instances/**").permitAll()
+                .antMatchers(adminContextPath + "/instances").permitAll()
+                .antMatchers(adminContextPath + "/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
                 .logout().logoutUrl(adminContextPath + "/logout").and()
                 .httpBasic().and()
-                .csrf().ignoringAntMatchers(adminContextPath + "/", adminContextPath + "/login", adminContextPath + "/eureka/**")
+                .csrf().ignoringAntMatchers(adminContextPath + "/", adminContextPath + "/login", adminContextPath + "/eureka/**", adminContextPath + "/instances/**")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringRequestMatchers(
                         new AntPathRequestMatcher(adminContextPath + "/instances", HttpMethod.POST.toString()),

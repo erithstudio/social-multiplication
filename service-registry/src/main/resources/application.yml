@@ -43,6 +43,16 @@ spring:
         user:
             name: admin
             password: admin
+    boot:
+        admin:
+            routes:
+                endpoints:
+                    - env
+                    - metrics
+                    - trace
+                    - jolokia
+                    - info
+                    - configprops
 
 ## With Spring Actuator, theses data will be visible from '/info'
 info:
