@@ -8,7 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().ignoringAntMatchers("/eureka/**");
+        http.httpBasic().and().authorizeRequests().antMatchers("/", "/login", "/eureka/**").permitAll();
+        http.csrf().ignoringAntMatchers("/", "/login", "/eureka/**");
         super.configure(http);
     }
 }
