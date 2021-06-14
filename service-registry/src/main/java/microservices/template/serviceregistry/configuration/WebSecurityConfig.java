@@ -9,6 +9,8 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.util.UUID;
+
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /*@Override
@@ -53,7 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         new AntPathRequestMatcher(adminContextPath + "/instances", HttpMethod.POST.toString()),
                         new AntPathRequestMatcher(adminContextPath + "/instances/*", HttpMethod.DELETE.toString()),
                         new AntPathRequestMatcher(adminContextPath + "/actuator/**")
-                );
+                ).and()
+                .rememberMe()
+                .key(UUID.randomUUID().toString())
+                .tokenValiditySeconds(1209600);
 
         // super.configure(http);
     }

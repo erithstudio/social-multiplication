@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-server'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
 
+    implementation 'de.codecentric:spring-boot-admin-server-ui-login:1.5.7'
     implementation 'de.codecentric:spring-boot-admin-starter-server'
     implementation 'org.jolokia:jolokia-core'
     implementation 'io.projectreactor:reactor-core:3.4.6'
