@@ -36,8 +36,7 @@ spring:
 
 ## With Spring Actuator, theses data will be visible from '/info'
 info:
-    name: "@project.artifactId@"
-    version: "@project.version@"
-    description: "@project.description@"
+    name: "@app.artifactId@"
+    version: "@app.version@"
+    description: "@app.description@"
     running-profile: ${spring.profiles.active}
-

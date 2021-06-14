@@ -73,9 +73,9 @@ public class GameServiceImpl implements GameService {
         }
         // Lucky number badge
         // SAMPLE FEIGN
-        // MultiplicationResultAttempt attempt = attemptClient.retrieveMultiplicationResultAttemptbyId(attemptId);
-        log.info(":: SAMPLE FEIGN");
-        MultiplicationResultAttempt attempt = multiplicationApi.retrieveMultiplicationResultAttemptbyId(attemptId);
+        MultiplicationResultAttempt attempt = attemptClient.retrieveMultiplicationResultAttemptbyId(attemptId);
+        // log.info(":: SAMPLE FEIGN");
+        // MultiplicationResultAttempt attempt = multiplicationApi.retrieveMultiplicationResultAttemptbyId(attemptId);
 
         if (!containsBadge(badgeCardList, Badge.LUCKY_NUMBER)
                 && (LUCKY_NUMBER == attempt.getMultiplicationFactorA()
