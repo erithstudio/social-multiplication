@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'junit:junit:4.12'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -27,12 +26,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'junit:junit:4.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     implementation project(':social-common')
 }
-
-//test {
-//	useJUnitPlatform()
-//}

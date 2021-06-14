@@ -1,0 +1,43 @@
+server:
+    port: 8761
+
+# Eureka Server - Configuration
+eureka:
+    instance:
+        appname: ${spring.application.name}
+        instanceId: ${spring.application.name}:${random.value}
+        hostname: localhost
+    dashboard:
+        path: /eureka-dashboard
+    server:
+        waitTimeInMsWhenSyncEmpty: 0
+        enable-self-preservation: false
+    client:
+        fetch-registry: false
+        register-with-eureka: false
+        service-url:
+            default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
+        healthcheck:
+            enabled: true
+
+# Config Server - Configuration
+spring:
+    cloud:
+        config:
+            server:
+                git:
+                    clone-on-start: true
+                    uri: https://github.com/erithstudio/social-config.git
+                prefix: /config
+    security:
+        user:
+            name: admin
+            password: admin
+
+## With Spring Actuator, theses data will be visible from '/info'
+info:
+    name: "@project.artifactId@"
+    version: "@project.version@"
+    description: "@project.description@"
+    running-profile: ${spring.profiles.active}
+

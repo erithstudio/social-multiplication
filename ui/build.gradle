@@ -13,12 +13,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'junit:junit:4.12'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
     implementation project(':social-common')
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 //test {

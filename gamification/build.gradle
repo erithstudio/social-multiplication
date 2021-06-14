@@ -13,27 +13,22 @@ repositories {
 }
 
 dependencies {
-    implementation 'junit:junit:4.12'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.3'
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.3'
-
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3'
     implementation 'com.h2database:h2'
 
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    implementation project(':social-common')
 
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'junit:junit:4.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
-
-    implementation project(':social-common')
 }
-
-//dependencies {
-//    testCompile group: 'junit', name: 'junit', version: '4.12'
-//}
