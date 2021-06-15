@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.*
+
 plugins {
     id 'org.springframework.boot' version '2.5.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -7,6 +9,13 @@ plugins {
 group = 'microservices.template'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+description = 'gamification app'
+
+ext {
+    set('app.artifactId', project.getName())
+    set('app.description', project.getDescription())
+    set('app.version', project.getVersion())
+}
 
 repositories {
     mavenCentral()
@@ -33,4 +42,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+processResources {
+    ant.println("projectProperties: " + project.ext.getProperties())
+    filesMatching('**/application.properties') {
+        filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: project.ext.getProperties())
+    }
 }

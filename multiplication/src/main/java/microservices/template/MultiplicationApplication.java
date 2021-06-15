@@ -10,10 +10,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @SpringBootApplication
 @EnableJpaRepositories("microservices.template.multiplication.repository")
-public class SocialMultiplicationApplication {
+public class MultiplicationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SocialMultiplicationApplication.class, args);
+		SpringApplication.run(MultiplicationApplication.class, args);
 	}
 
 }
