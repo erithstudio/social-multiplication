@@ -10,10 +10,32 @@ spring:
     dispatch-options-request: on
   main:
     banner-mode: off
+  profiles:
+    active: 'dev'
   cloud:
     loadbalancer:
       ribbon:
         enabled: true
+  boot:
+    admin:
+      client:
+        username: admin
+        password: admin
+        url: http://localhost:8761
+        instance:
+          metadata:
+            user:
+              name: ${spring.security.user.name}
+              password: ${spring.security.user.password}
+      url: http://localhost:8761
+      username: admin
+      password: admin
+  security:
+    user:
+      name: apigateway-client
+      password: apigateway-client
+
+
 
 zuul:
   ignoredServices: '*'
@@ -80,3 +102,25 @@ gamification:
   ribbon:
     listOfServers: localhost:8082
     ServerListRefreshInterval: 15000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+## With Spring Actuator, theses data will be visible from '/info'
+info:
+  name: "@app.artifactId@"
+  version: "@app.version@"
+  description: "@app.description@"
+  running-profile: ${spring.profiles.active}
+
+# Logging Configuration
+logging:
+  file:
+    path: "C:/aprisma/logs/${spring.application.name}.log"
+  pattern:
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"

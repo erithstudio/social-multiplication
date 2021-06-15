@@ -13,13 +13,6 @@ import java.util.UUID;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    /*@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and().authorizeRequests().antMatchers("/", "/login", "/eureka/**").permitAll();
-        http.csrf().ignoringAntMatchers("/", "/login", "/eureka/**");
-        super.configure(http);
-    }*/
-
     private final String adminContextPath;
 
     public WebSecurityConfig(AdminServerProperties adminServerProperties) {
@@ -33,10 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl(adminContextPath + "/");
 
-//        http.httpBasic().and().authorizeRequests().antMatchers("/", "/login", "/eureka/**").permitAll();
-//        http.csrf().ignoringAntMatchers("/", "/login", "/eureka/**");
-
-        http.authorizeRequests()
+        http.headers().frameOptions().disable().and()
+                .authorizeRequests()
                 .antMatchers(adminContextPath + "/").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/**.css").permitAll()
@@ -44,16 +35,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()
                 .antMatchers(adminContextPath + "/eureka/**").permitAll()
+                .antMatchers(adminContextPath + "/eureka-dashboard").permitAll()
+                .antMatchers(adminContextPath + "/eureka/**/**").permitAll()
+                .antMatchers(adminContextPath + "/eureka/**/**/**").permitAll()
                 .antMatchers(adminContextPath + "/instances/**").permitAll()
                 .antMatchers(adminContextPath + "/instances").permitAll()
                 .antMatchers(adminContextPath + "/actuator/**").permitAll()
-                .antMatchers("/login.html", "/**/*.css", "/img/**", "/third-party/**").permitAll()
+                .antMatchers("/login.html", "/**/**/*.css", "/**/**/**/*.css", "/**/*.css", "/img/**", "/third-party/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
                 .logout().logoutUrl(adminContextPath + "/logout").and()
                 .httpBasic().and()
-                .csrf().ignoringAntMatchers(adminContextPath + "/", adminContextPath + "/login", adminContextPath + "/eureka/**", adminContextPath + "/instances/**", adminContextPath + "/**.css")
+                .csrf().ignoringAntMatchers(adminContextPath + "/", adminContextPath + "/login", adminContextPath + "/eureka/**", adminContextPath + "/eureka/**/**", adminContextPath + "/eureka/**/**/**", adminContextPath + "/eureka-dashboard", adminContextPath + "/instances/**", adminContextPath + "/**.css")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringRequestMatchers(
                         new AntPathRequestMatcher(adminContextPath + "/instances", HttpMethod.POST.toString()),
@@ -63,7 +57,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key(UUID.randomUUID().toString())
                 .tokenValiditySeconds(1209600);
-
-        // super.configure(http);
     }
 }

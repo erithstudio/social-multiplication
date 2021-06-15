@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.*
+
 plugins {
     id 'org.springframework.boot' version '2.3.12.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -7,6 +9,7 @@ plugins {
 group = 'microservices.template'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+description = 'API Gateway'
 
 repositories {
     mavenCentral()
@@ -14,6 +17,10 @@ repositories {
 
 ext {
     set('springCloudVersion', "Hoxton.SR11")
+    set('springAdminVersion', "2.3.1")
+    set('app.artifactId', project.getName())
+    set('app.description', project.getDescription())
+    set('app.version', project.getVersion())
 }
 
 dependencies {
@@ -21,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.3'
+    implementation "de.codecentric:spring-boot-admin-starter-client:${springAdminVersion}"
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-ribbon', version: '1.4.7.RELEASE'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
 
@@ -35,6 +43,14 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
+
+processResources {
+    ant.println("projectProperties: " + project.ext.getProperties())
+    filesMatching('**/application.yml') {
+        filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: project.ext.getProperties())
+    }
+}
+
 
 //test {
 //    useJUnitPlatform()

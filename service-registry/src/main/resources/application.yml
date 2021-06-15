@@ -15,6 +15,7 @@ eureka:
             user.password: ${spring.security.user.password}
             startup: ${random.int}    #needed to trigger info and endpoint update after restart
     dashboard:
+        enabled: true
         path: /eureka-dashboard
     server:
         waitTimeInMsWhenSyncEmpty: 0
@@ -56,15 +57,36 @@ spring:
                     - jolokia
                     - info
                     - configprops
+                    - logfile
+                    - loggers
+                    - refresh
+                    - liquibase
+                    - heapdump
+                    - auditevents
+                    - health
+                    - httptrace:trace
             url: http://localhost:8761
             username: admin
             password: admin
             ui:
+                title: PrimecashX Admin Console
+                brand: '<img src="assets/img/icon-spring-boot-admin.svg"><span>PrimecashX Admin Console</span>'
                 external-views:
                     - label: "🚀"
                       url: http://localhost:15672/
                       order: 2000
                       iframe: true
+                    - label: "🍭"
+                      url: http://localhost:8761/eureka-dashboard
+                      order: 2001
+                      iframe: true
+
+# Logging Configuration
+logging:
+    file:
+        name: "C:/aprisma/logs/service-registry.log"
+    pattern:
+        file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
 
 ## With Spring Actuator, theses data will be visible from '/info'
 info:
