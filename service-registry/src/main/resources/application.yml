@@ -59,6 +59,12 @@ spring:
             url: http://localhost:8761
             username: admin
             password: admin
+            ui:
+                external-views:
+                    - label: "🚀"
+                      url: http://localhost:15672/
+                      order: 2000
+                      iframe: true
 
 ## With Spring Actuator, theses data will be visible from '/info'
 info:

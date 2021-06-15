@@ -34,8 +34,8 @@ dependencies {
 
     implementation "de.codecentric:spring-boot-admin-starter-client:${springAdminVersion}"
     implementation "de.codecentric:spring-boot-admin-starter-server:${springAdminVersion}"
-    implementation "de.codecentric:spring-boot-admin-server-ui-login:1.5.7"
-    implementation 'com.hazelcast:hazelcast'
+    implementation "de.codecentric:spring-boot-admin-server-ui:${springAdminVersion}"
+    implementation 'com.hazelcast:hazelcast:4.0.3'
 
     testImplementation 'junit:junit:4.12'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

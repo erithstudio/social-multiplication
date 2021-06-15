@@ -38,18 +38,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(adminContextPath + "/").permitAll()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/**.css").permitAll()
+                .antMatchers("*.css").permitAll()
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()
                 .antMatchers(adminContextPath + "/eureka/**").permitAll()
                 .antMatchers(adminContextPath + "/instances/**").permitAll()
                 .antMatchers(adminContextPath + "/instances").permitAll()
                 .antMatchers(adminContextPath + "/actuator/**").permitAll()
+                .antMatchers("/login.html", "/**/*.css", "/img/**", "/third-party/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
                 .logout().logoutUrl(adminContextPath + "/logout").and()
                 .httpBasic().and()
-                .csrf().ignoringAntMatchers(adminContextPath + "/", adminContextPath + "/login", adminContextPath + "/eureka/**", adminContextPath + "/instances/**")
+                .csrf().ignoringAntMatchers(adminContextPath + "/", adminContextPath + "/login", adminContextPath + "/eureka/**", adminContextPath + "/instances/**", adminContextPath + "/**.css")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringRequestMatchers(
                         new AntPathRequestMatcher(adminContextPath + "/instances", HttpMethod.POST.toString()),

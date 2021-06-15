@@ -64,10 +64,8 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka/
-    register-with-eureka: false
-    registerWithEureka: false
+    register-with-eureka: false      # it should be hidden from eureka registry, but need MS registered
     fetch-registry: true
-    fetchRegistry: true
 ribbon:
   eureka:
     enabled: true
