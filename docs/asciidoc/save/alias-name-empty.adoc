@@ -1,0 +1,21 @@
+[[users_save_alias_name_empty]]
+==== Empty alias name
+When you're trying to create a user without a alias name, a **400 Bad Request** is provided, with a different response containing an error message.
+
+[[users_save_alias_name_empty_request]]
+===== Request
+The structure of the request is similar to a successful call (see <<users_save_success_request>>), but using `null` as a alias name:
+
+include::{generate-source-snippets}/save-should-return-error-if-alias-name-is-empty/http-request.adoc[]
+
+[[users_save_alias_name_empty_response]]
+===== Response
+include::{generate-source-snippets}/save-should-return-error-if-alias-name-is-empty/http-response.adoc[]
+
+[[users_save_alias_name_empty_response_body]]
+====== Response body
+include::{generate-source-snippets}/save-should-return-error-if-alias-name-is-empty/response-fields.adoc[]
+
+[[users_save_alias_name_empty_curl]]
+===== cURL
+include::{generate-source-snippets}/save-should-return-error-if-alias-name-is-empty/curl-request.adoc[]

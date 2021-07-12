@@ -1,0 +1,13 @@
+[[users_save]]
+=== Create user
+
+include::success.adoc[]
+include::alias-name-empty.adoc[]
+include::alias-name-lengthy.adoc[]
+include::middle-name-lengthy.adoc[]
+include::first-name-empty.adoc[]
+include::first-name-lengthy.adoc[]
+include::date-of-birth-empty.adoc[]
+include::date-of-birth-future.adoc[]
+include::siblings-empty.adoc[]
+include::siblings-negative.adoc[]

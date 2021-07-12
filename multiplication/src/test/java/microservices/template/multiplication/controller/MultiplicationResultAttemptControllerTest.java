@@ -1,6 +1,8 @@
 package microservices.template.multiplication.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import microservices.template.multiplication.domain.Multiplication;
 import microservices.template.multiplication.domain.MultiplicationResultAttempt;
 import microservices.template.multiplication.domain.User;
@@ -22,6 +24,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,9 +49,16 @@ public class MultiplicationResultAttemptControllerTest {
     private JacksonTester<MultiplicationResultAttempt> jsonResultAttempt;
     private JacksonTester<List<MultiplicationResultAttempt>> jsonResultAttemptList;
 
+    private ObjectMapper MAPPER;
+
     @Before
     public void setup() {
-        JacksonTester.initFields(this, new ObjectMapper());
+        MAPPER = new ObjectMapper();
+        // Now you should use JavaTimeModule instead
+        MAPPER.registerModule(new JSR310Module());
+        MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+        JacksonTester.initFields(this, MAPPER);
     }
 
     @Test
@@ -64,7 +74,8 @@ public class MultiplicationResultAttemptControllerTest {
     void genericParameterizedTest(final boolean correct) throws Exception {
         // given (remember we're not testing here the serviceitself)
         given(multiplicationService.checkAttempt(any(MultiplicationResultAttempt.class))).willReturn(correct);
-        User user = new User("john");
+        // User user = new User("john");
+        User user = new User(1L, "john_doe", null, "John", LocalDate.of(2010, 1, 1), 0);
         Multiplication multiplication = new Multiplication(50, 70);
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, false);
         // when
@@ -84,7 +95,8 @@ public class MultiplicationResultAttemptControllerTest {
     @Test
     public void getUserStats() throws Exception {
         // given
-        User user = new User("john_doe");
+        // User user = new User("john_doe");
+        User user = new User(1L, "john_doe", null, "John", LocalDate.of(2010, 1, 1), 0);
         Multiplication multiplication = new Multiplication(50, 70);
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(
                 user, multiplication, 3500, true);
@@ -104,7 +116,8 @@ public class MultiplicationResultAttemptControllerTest {
     @Test
     public void getResultByIdTest() throws Exception {
         // given
-        User user = new User("john_doe");
+        // User user = new User("john_doe");
+        User user = new User(1L, "john_doe", null, "John", LocalDate.of(2010, 1, 1), 0);
         Multiplication multiplication = new Multiplication(50, 70);
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(
                 user, multiplication, 3500, true);

@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +63,8 @@ public class MultiplicationServiceImplTest {
     public void checkCorrectAttemptTest() {
         // given
         Multiplication multiplication = new Multiplication(50, 60);
-        User user = new User("john_doe");
+        // User user = new User("john_doe");
+        User user = new User(1L, "john_doe", null, "John", LocalDate.of(2010, 1, 1), 0);
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3000, false);
         MultiplicationResultAttempt verifiedAttempt = new MultiplicationResultAttempt(user, multiplication, 3000, true);
         MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getId(), attempt.getUser().getId(), true);
@@ -81,7 +83,8 @@ public class MultiplicationServiceImplTest {
     public void checkWrongAttemptTest() {
         // given
         Multiplication multiplication = new Multiplication(50, 60);
-        User user = new User("john_doe");
+        // User user = new User("john_doe");
+        User user = new User(1L, "john_doe", null, "John", LocalDate.of(2010, 1, 1), 0);
         MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3010, false);
         MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getId(), attempt.getUser().getId(), false);
         given(userRepository.findByAlias("john_doe")).willReturn(Optional.empty());
@@ -99,7 +102,8 @@ public class MultiplicationServiceImplTest {
     public void retrieveStatsTest() {
         // given
         Multiplication multiplication = new Multiplication(50, 60);
-        User user = new User("john_doe");
+        // User user = new User("john_doe");
+        User user = new User(1L, "john_doe", null, "John", LocalDate.of(2010, 1, 1), 0);
         MultiplicationResultAttempt attempt1 = new MultiplicationResultAttempt(
                 user, multiplication, 3010, false);
         MultiplicationResultAttempt attempt2 = new MultiplicationResultAttempt(
