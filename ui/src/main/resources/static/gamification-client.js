@@ -1,4 +1,4 @@
-var SERVER_URL = "http://localhost:8080/api";
+var SERVER_URL = "http://10.240.39.188:8080/api";
 
 function updateLeaderBoard() {
     $.ajax({
