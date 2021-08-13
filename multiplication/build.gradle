@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.3'
     implementation 'de.codecentric:spring-boot-admin-starter-client:2.4.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
+    implementation 'org.thepavel:spring-icomponent:1.0.8'
 
     implementation 'com.h2database:h2'
 
