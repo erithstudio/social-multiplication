@@ -1,4 +1,4 @@
-package microservices.template.multiplication.processor;
+package microservices.template.multiplication.dto;
 
 public class DtoValidationResponseStatusDetail extends DtoResponseStatusDetail {
 

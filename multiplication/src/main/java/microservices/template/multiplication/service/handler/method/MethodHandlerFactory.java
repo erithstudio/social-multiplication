@@ -2,7 +2,9 @@ package microservices.template.multiplication.service.handler.method;
 
 import microservices.template.multiplication.enumeration.CallTypeEnum;
 import microservices.template.multiplication.service.handler.method.impl.*;
+import org.springframework.context.ApplicationContext;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,31 +21,41 @@ public class MethodHandlerFactory {
         return SINGLETON;
     }
 
-    public Object execute(CallTypeEnum type, Object executorObject, Object[] arguments) throws Exception {
+    public Object execute(CallTypeEnum type, ApplicationContext context, String objectId, Object[] arguments) throws Throwable {
         if (!callerMap.containsKey(type)) {
             switch (type) {
                 case CALL:
-                    callerMap.put(CallTypeEnum.CALL, new CallMethodHandler());
+                    callerMap.put(CallTypeEnum.CALL, new CallMethodHandler(context));
                     break;
                 case DOWNLOAD:
-                    callerMap.put(CallTypeEnum.DOWNLOAD, new DownloadlMethodHandler());
+                    callerMap.put(CallTypeEnum.DOWNLOAD, new DownloadlMethodHandler(context));
+                    break;
+                case UPLOAD:
+                    callerMap.put(CallTypeEnum.UPLOAD, new UploadMethodHandler(context));
                     break;
                 case SEARCH:
-                    callerMap.put(CallTypeEnum.SEARCH, new SearchMethodHandler());
+                    callerMap.put(CallTypeEnum.SEARCH, new SearchMethodHandler(context));
                     break;
                 case UPDATE:
-                    callerMap.put(CallTypeEnum.UPDATE, new UpdateMethodHandler());
+                    callerMap.put(CallTypeEnum.UPDATE, new UpdateMethodHandler(context));
                     break;
                 case CREATE:
-                    callerMap.put(CallTypeEnum.CREATE, new CreateMethodHandler());
+                    callerMap.put(CallTypeEnum.CREATE, new CreateMethodHandler(context));
                     break;
                 case VALIDATE:
-                    callerMap.put(CallTypeEnum.VALIDATE, new ValidateMethodHandler());
+                    callerMap.put(CallTypeEnum.VALIDATE, new ValidateMethodHandler(context));
                     break;
                 default:
                     throw new RuntimeException();
             }
         }
-        return callerMap.get(type).handle(executorObject, arguments);
+
+        Object result = null;
+        try {
+            result = callerMap.get(type).handle(objectId, arguments);
+        } catch (InvocationTargetException ex) {
+            throw ex.getCause();
+        }
+        return result;
     }
 }

@@ -1,6 +1,5 @@
 package microservices.template.multiplication.helper.annotation;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 import org.thepavel.icomponent.Handler;
 

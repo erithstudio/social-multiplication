@@ -2,6 +2,7 @@ package microservices.template.multiplication.enumeration;
 
 public enum CallTypeEnum {
     CALL("CALL"),
+    UPLOAD("UPLOAD"),
     DOWNLOAD("DOWNLOAD"),
     SEARCH("SEARCH"),
     UPDATE("UPDATE"),

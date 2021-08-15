@@ -7,8 +7,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.Method;
 
-public class DownloadlMethodHandler extends ABaseMethodHandler {
-    public DownloadlMethodHandler(ApplicationContext context) {
+public class UploadMethodHandler extends ABaseMethodHandler {
+
+    public UploadMethodHandler(ApplicationContext context) {
         super(context);
     }
 

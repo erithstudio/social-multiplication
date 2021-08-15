@@ -1,5 +1,6 @@
 package microservices.template.multiplication.processor;
 
+import microservices.template.multiplication.dto.DtoValidationResponseStatusDetail;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

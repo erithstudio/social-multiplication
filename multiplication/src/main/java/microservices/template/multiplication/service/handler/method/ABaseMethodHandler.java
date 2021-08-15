@@ -1,11 +1,21 @@
 package microservices.template.multiplication.service.handler.method;
 
+import lombok.Getter;
+import org.springframework.context.ApplicationContext;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class ABaseMethodHandler implements IMethodHandler {
+    @Getter
+    private ApplicationContext applicationContext;
+
+    public ABaseMethodHandler(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
     protected Class[] getCastClassesFromObject(Object[] arguments) {
         return Arrays.stream(arguments).map(o -> o.getClass()).toArray(Class[]::new);
     }

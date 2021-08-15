@@ -1,5 +1,7 @@
 package microservices.template.multiplication.processor;
 
+import microservices.template.multiplication.dto.DtoValidationResponseStatusDetail;
+
 import java.util.List;
 
 public class ValidationProcessorException extends TxgException {
