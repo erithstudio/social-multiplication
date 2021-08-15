@@ -1,4 +1,4 @@
-package microservices.template.multiplication.helper;
+package microservices.template.multiplication.helper.annotation;
 
 import org.springframework.stereotype.Service;
 import org.thepavel.icomponent.Handler;

@@ -1,9 +1,9 @@
 package microservices.template.multiplication.service;
 
 import microservices.template.multiplication.domain.Client;
-import microservices.template.multiplication.helper.EmailService;
-import microservices.template.multiplication.helper.Param;
-import microservices.template.multiplication.helper.To;
+import microservices.template.multiplication.helper.annotation.EmailService;
+import microservices.template.multiplication.helper.annotation.Param;
+import microservices.template.multiplication.helper.annotation.To;
 
 @EmailService
 public interface RegistrationEmailService {

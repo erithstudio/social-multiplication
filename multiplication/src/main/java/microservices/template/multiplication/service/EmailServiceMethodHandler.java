@@ -2,8 +2,8 @@ package microservices.template.multiplication.service;
 
 import lombok.extern.slf4j.Slf4j;
 import microservices.template.multiplication.domain.Client;
-import microservices.template.multiplication.helper.Param;
-import microservices.template.multiplication.helper.To;
+import microservices.template.multiplication.helper.annotation.Param;
+import microservices.template.multiplication.helper.annotation.To;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.stereotype.Component;
 import org.thepavel.icomponent.handler.MethodHandler;

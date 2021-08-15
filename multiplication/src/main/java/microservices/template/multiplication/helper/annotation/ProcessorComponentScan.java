@@ -1,4 +1,4 @@
-package microservices.template.multiplication.helper;
+package microservices.template.multiplication.helper.annotation;
 
 import microservices.template.multiplication.autoconfig.ExecutorAutoConfigureRegistrar;
 import org.springframework.context.annotation.Import;

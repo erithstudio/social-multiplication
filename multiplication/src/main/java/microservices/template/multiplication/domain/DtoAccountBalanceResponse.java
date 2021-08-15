@@ -2,8 +2,11 @@ package microservices.template.multiplication.domain;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
-public class DtoAccountBalanceResponse {
-    private String accountId;
-    private String content;
+public class DtoAccountBalanceResponse extends ADtoResponse {
+    private DtoAccountRequest accountRequest;
+    private BigDecimal amount;
+    private String currency;
 }

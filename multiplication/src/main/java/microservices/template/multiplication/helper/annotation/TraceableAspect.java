@@ -1,4 +1,4 @@
-package microservices.template.multiplication.helper;
+package microservices.template.multiplication.helper.annotation;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TraceableAspect {
 
-    @Around("@annotation(Traceable)")
+    @Around("@annotation(microservices.template.multiplication.helper.annotation.Traceable)")
     public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
 
         System.out.println("Input :\n" + joinPoint.getArgs()[0]);

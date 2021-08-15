@@ -1,6 +1,6 @@
 package microservices.template.multiplication.controller;
 
-import microservices.template.multiplication.helper.Traceable;
+import microservices.template.multiplication.helper.annotation.Traceable;
 import microservices.template.multiplication.service.RegistrationEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

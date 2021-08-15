@@ -1,77 +1,51 @@
 package microservices.template.multiplication.autoconfig;
 
-import microservices.template.multiplication.helper.ProcessorComponentScan;
-import microservices.template.multiplication.processor.IBaseProcessor;
+import com.google.common.collect.Sets;
+import lombok.extern.slf4j.Slf4j;
+import microservices.template.multiplication.helper.annotation.GameMapper;
+import microservices.template.multiplication.helper.annotation.ProcessorComponentScan;
+import microservices.template.multiplication.processor.IExecutorProcessor;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
-import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.core.type.filter.AssignableTypeFilter;
-import org.springframework.util.ClassUtils;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class ExecutorAutoConfigureRegistrar
-        implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
-
-    private ResourceLoader resourceLoader;
-
-    private Environment environment;
-
+@Slf4j
+public class ExecutorAutoConfigureRegistrar extends BaseAutoConfigureRegistrar {
     @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
+    public Class getAnnotationClass() {
+        return ProcessorComponentScan.class;
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    public void registerBeanDefinitions(BeanDefinitionRegistry registry, Environment environment, ResourceLoader resourceLoader, Set<String> packagesToScan) {
         MetaBeanDefinitionScanner scanner =
-                new MetaBeanDefinitionScanner(registry, this.environment, this.resourceLoader);
-        Set<String> packagesToScan = this.getPackagesToScan(importingClassMetadata);
+                new MetaBeanDefinitionScanner(registry, environment, resourceLoader, getFilterClasses(packagesToScan));
         scanner.scan(packagesToScan.toArray(new String[]{}));
     }
 
-
-    private static class MetaBeanDefinitionScanner extends ClassPathBeanDefinitionScanner {
-        public MetaBeanDefinitionScanner(BeanDefinitionRegistry registry, Environment environment,
-                                         ResourceLoader resourceLoader) {
-            super(registry, false, environment, resourceLoader);
-            registerFilters();
+    private Class[] getFilterClasses(Set<String> packagesToScan) {
+        Class baseClass = IExecutorProcessor.class;
+        Set<Class> classToScan = Sets.newHashSet(baseClass);
+        try {
+            for (String packageName : packagesToScan) {
+                Class[] params = getClasses(packageName);
+                for (int i = 0; i < params.length; i++) {
+                    if (Arrays.asList(params[i].getSuperclass().getInterfaces()).contains(baseClass)) {
+                        GameMapper mapper = (GameMapper) params[i].getAnnotation(GameMapper.class);
+                        Class[] mapperClasses = mapper.value();
+                        for (Class mapperClass : mapperClasses) {
+                            packagesToScan.add(mapperClass.getPackage().getName());
+                            classToScan.add(mapperClass);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("error getFilterClasses", e);
         }
-
-        protected void registerFilters() {
-            addIncludeFilter(new AssignableTypeFilter(IBaseProcessor.class));
-        }
+        return classToScan.toArray(new Class[0]);
     }
-
-    private Set<String> getPackagesToScan(AnnotationMetadata metadata) {
-        AnnotationAttributes attributes =
-                AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ProcessorComponentScan.class.getName()));
-        String[] basePackages = attributes.getStringArray("basePackages");
-        Class<?>[] basePackageClasses = attributes.getClassArray("basePackageClasses");
-
-        Set<String> packagesToScan = new LinkedHashSet<>(Arrays.asList(basePackages));
-        for (Class clz : basePackageClasses) {
-            packagesToScan.add(ClassUtils.getPackageName(clz));
-        }
-
-        if (packagesToScan.isEmpty()) {
-            packagesToScan.add(ClassUtils.getPackageName(metadata.getClassName()));
-        }
-
-        return packagesToScan;
-    }
-
 }

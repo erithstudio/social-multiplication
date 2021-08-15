@@ -1,4 +1,4 @@
-package microservices.template.multiplication.helper;
+package microservices.template.multiplication.helper.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
