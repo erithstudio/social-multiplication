@@ -14,8 +14,8 @@ public class AccountCurrencyExistValidator extends ABaseValidatorProcessor<DtoAc
 
     @Override
     public List<ValidationError> process(HttpServletRequest servletRequest, DtoAccountBalanceRequest internal) {
-        if (internal.getCurrency() == null) {
-            return oneNotFoundError("currency");
+        if (internal.getAccountRequest().getAccountId().equalsIgnoreCase("11111")) {
+            return oneNotFoundError("accountId");
         }
         return noErrors();
     }

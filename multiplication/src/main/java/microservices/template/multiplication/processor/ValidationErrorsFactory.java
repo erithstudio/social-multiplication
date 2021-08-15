@@ -3,6 +3,7 @@ package microservices.template.multiplication.processor;
 import microservices.template.multiplication.enumeration.ErrorConstantsEnum;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -69,59 +70,60 @@ public class ValidationErrorsFactory {
     //=========== List of errors factory methods =====================
 
     public static List<ValidationError> noErrors() {
-        return List.of();
+        return Arrays.asList();
     }
 
     public static List<ValidationError> oneFieldError(IErrorConstant errorConstant, String fieldName) {
-        return List.of(fieldError(errorConstant, fieldName));
+        return Arrays.asList(fieldError(errorConstant, fieldName));
     }
 
     public static List<ValidationError> oneFieldErrorWithMessageArguments(IErrorConstant errorConstant, String fieldName, Object... messageArguments) {
-        return List.of(fieldErrorWithMessageArguments(errorConstant, fieldName, messageArguments));
+        return Arrays.asList(fieldErrorWithMessageArguments(errorConstant, fieldName, messageArguments));
     }
 
     public static List<ValidationError> oneError(IErrorConstant errorConstant) {
-        return List.of(error(errorConstant));
+        return Arrays.asList(error(errorConstant));
     }
 
     public static List<ValidationError> oneErrorWithMessageArguments(IErrorConstant errorConstant, Object... messageArguments) {
-        return List.of(errorWithMessageArguments(errorConstant, messageArguments));
+        return Arrays.asList(errorWithMessageArguments(errorConstant, messageArguments));
     }
 
     public static List<ValidationError> oneNotFoundError(String fieldName) {
-        return List.of(notFound(fieldName));
+        return Arrays.asList(notFound(fieldName));
     }
 
     public static List<ValidationError> oneNotAllowedError(String fieldName) {
-        return List.of(notAllowed(fieldName));
+        return Arrays.asList(notAllowed(fieldName));
     }
 
     public static List<ValidationError> oneNotUniqueError(String fieldName) {
-        return List.of(notUnique(fieldName));
+        return Arrays.asList(notUnique(fieldName));
     }
 
     public static List<ValidationError> oneInvalidValueError(String fieldName) {
-        return List.of(invalidValue(fieldName));
+        return Arrays.asList(invalidValue(fieldName));
     }
 
     public static List<ValidationError> oneMinValueViolationError(String fieldName) {
-        return List.of(minValueViolation(fieldName));
+        return Arrays.asList(minValueViolation(fieldName));
     }
 
     public static List<ValidationError> oneMaxValueViolationError(String fieldName) {
-        return List.of(maxValueViolation(fieldName));
+        return Arrays.asList(maxValueViolation(fieldName));
     }
 
     public static List<ValidationError> oneNoAccessError(String fieldName) {
-        return List.of(noAccess(fieldName));
+        return Arrays.asList(noAccess(fieldName));
     }
 
     /**
      * Iterates over collection of items and collects validation errors provided by validatonErrorsProvider.
-     * @param collection collection of items to validate
+     *
+     * @param collection              collection of items to validate
      * @param validatonErrorsProvider function that takes current item together with its index and generates a collection
      *                                of validation errors or empty collection if there are none
-     * @param <T> item type
+     * @param <T>                     item type
      * @return all validation errors generated from all items
      */
     public static <T> List<ValidationError> validateCollection(
@@ -138,12 +140,13 @@ public class ValidationErrorsFactory {
 
     /**
      * Iterates over collection of items and collects validation errors provided by validatonErrorsProvider.
-     * @param collection collection of items to validate
+     *
+     * @param collection      collection of items to validate
      * @param fieldPathFormat format string for java.lang.String.format() method using %s as placeholder for item index,
      *                        e.g. limits[%s].amount
-     * @param errorConstant error constant to use for generated validation errors
-     * @param validator function that takes item and return true if item is valid, otherwise returns false
-     * @param <T> item type
+     * @param errorConstant   error constant to use for generated validation errors
+     * @param validator       function that takes item and return true if item is valid, otherwise returns false
+     * @param <T>             item type
      * @return all validation errors generated from all items
      */
     public static <T> List<ValidationError> validateCollection(

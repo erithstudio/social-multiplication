@@ -6,6 +6,7 @@ import microservices.template.multiplication.enumeration.DtoResponseStatusCodeEn
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public interface ITxgErrorBasicController {
     Logger getLogger();
 
     default DtoResponseStatus createResponseStatusDto(DtoResponseStatusDetail responseStatusDetail) {
-        return createResponseStatusDto(List.of(responseStatusDetail));
+        return createResponseStatusDto(Arrays.asList(responseStatusDetail));
     }
 
     default <D extends DtoResponseStatusDetail> DtoResponseStatus createResponseStatusDto(List<D> responseStatusDetails) {

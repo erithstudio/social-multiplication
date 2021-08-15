@@ -26,6 +26,7 @@ import javax.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.ProviderNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -175,7 +176,7 @@ public class TxgBasicErrorController extends ResponseEntityExceptionHandler impl
     }
 
     private List<DtoResponseStatusDetail> createResponseDetails(TxgException ex) {
-        return List.of(new DtoResponseStatusDetail(moduleProperties.baseCode() + "." + ex.getErrorCode(), ex.getMessage()));
+        return Arrays.asList(new DtoResponseStatusDetail(moduleProperties.baseCode() + "." + ex.getErrorCode(), ex.getMessage()));
     }
 
     protected String getInternalCode() {

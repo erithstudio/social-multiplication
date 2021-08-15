@@ -8,6 +8,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -92,7 +93,7 @@ public class ValidationDetailsReport<T> {
         for (Predicate<DtoValidationResponseStatusDetail> predicate : errorPriorities) {
             Optional<DtoValidationResponseStatusDetail> error = findError(validationDetails, predicate);
             if (error.isPresent()) {
-                validationDetails = List.of(error.get());
+                validationDetails = Arrays.asList(error.get());
                 break;
             }
         }
