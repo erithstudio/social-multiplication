@@ -1,15 +1,14 @@
 package microservices.template.multiplication.configuration;
 
-import microservices.template.multiplication.protobuf.*;
+import microservices.template.multiplication.protobuf.Course;
+import microservices.template.multiplication.protobuf.Student;
 import microservices.template.multiplication.protobuf.Student.PhoneNumber;
 import microservices.template.multiplication.repository.CourseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
-import org.springframework.messaging.converter.MessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -18,21 +17,21 @@ import java.util.*;
 @Configuration
 public class ProtobufConfiguration extends WebMvcConfigurerAdapter {
     @Bean
-    HttpMessageConverter protobufHttpMessageConverter() {
+    public HttpMessageConverter customProtobufMessageConverter() {
         return new ProtobufHttpMessageConverter();
     }
 
     @Bean
-    MappingJackson2HttpMessageConverter jacksonConverter() {
+    public HttpMessageConverter customJacksonMessageConverter() {
         return new MappingJackson2HttpMessageConverter();
     }
 
     @Bean
-    RestTemplate restTemplate(HttpMessageConverter protobufHttpMessageConverter, MappingJackson2HttpMessageConverter jacksonConverter) {
+    RestTemplate customRestTemplate(HttpMessageConverter customProtobufMessageConverter, HttpMessageConverter customJacksonMessageConverter) {
         RestTemplate restTemplate = new RestTemplate();
         List messageConverters = restTemplate.getMessageConverters();
-        messageConverters.add(0, jacksonConverter);
-        messageConverters.add(1, protobufHttpMessageConverter);
+        messageConverters.add(0, customJacksonMessageConverter);
+        messageConverters.add(1, customProtobufMessageConverter);
         restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
     }
@@ -80,7 +79,8 @@ public class ProtobufConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.configureMessageConverters(converters);
-        converters.add(protobufHttpMessageConverter());
+        converters.add(0, customProtobufMessageConverter());
+        converters.add(1, customJacksonMessageConverter());
     }
 
 }
