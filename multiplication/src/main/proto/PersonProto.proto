@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "microservices.template.multiplication.protobuf";
+option java_outer_classname = "OuterPersonProto";
+option java_multiple_files = true;
+
+
+message PersonProto {
+  string firstName = 1;
+  string lastName = 2;
+  string emailAddress = 3;
+  string homeAddress = 4;
+  repeated MobileNumber mobileNumbers = 5;
+
+  message MobileNumber {
+    int32 areaCode = 1;
+    int32 phoneNumber = 2;
+  }
+}

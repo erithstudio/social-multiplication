@@ -6,6 +6,7 @@ import microservices.template.multiplication.dto.DtoValidationResponseStatusDeta
 import microservices.template.multiplication.processor.IModuleProperties;
 import microservices.template.multiplication.processor.TxgException;
 import microservices.template.multiplication.processor.ValidationProcessorException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -118,7 +119,7 @@ public class TxgBasicErrorController extends ResponseEntityExceptionHandler impl
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         DtoResponseStatus responseStatus = createResponseStatusDto(
-                new DtoResponseStatusDetail(getInternalCode(), ex.getCause().getMessage()));
+                new DtoResponseStatusDetail(getInternalCode(), ex.getCause() != null ? ex.getCause().getMessage() : StringUtils.EMPTY));
         logError(ex, status, responseStatus);
         return new ResponseEntity<>(responseStatus, headers, INTERNAL_SERVER_ERROR);
     }
@@ -131,7 +132,7 @@ public class TxgBasicErrorController extends ResponseEntityExceptionHandler impl
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<DtoResponseStatus> handleRuntime(RuntimeException ex) {
-        if(ex.getCause() != null && ex.getCause() instanceof ValidationProcessorException) {
+        if (ex.getCause() != null && ex.getCause() instanceof ValidationProcessorException) {
             return handleValidationProcessorException((ValidationProcessorException) ex.getCause());
         }
         return processResponse(ex, INTERNAL_SERVER_ERROR, createResponseStatusDto(

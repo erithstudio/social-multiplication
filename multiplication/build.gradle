@@ -1,10 +1,20 @@
 import org.apache.tools.ant.filters.*
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.17'
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.5.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'org.asciidoctor.jvm.convert' version '3.3.0'
+    id "com.google.protobuf" version "0.8.17"
 }
 
 group = 'microservices.template'
@@ -31,9 +41,18 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-config:3.0.4'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.3'
     implementation 'de.codecentric:spring-boot-admin-starter-client:2.4.1'
+
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    implementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+
     implementation 'org.thepavel:spring-icomponent:1.0.8'
     implementation "org.apache.commons:commons-lang3:3.8.1"
+    implementation 'com.google.protobuf:protoc:3.18.0'
+    implementation 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.2'
+    compileOnly group: 'com.google.protobuf', name: 'protobuf-java', version: '3.18.0'
 
     implementation 'com.h2database:h2'
 
@@ -45,6 +64,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.google.protobuf:protoc:3.18.0'
+    testImplementation 'com.google.protobuf:protobuf-java:3.18.0'
+    testImplementation 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
+    testImplementation 'org.apache.httpcomponents:httpclient:4.5.2'
+
+    testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
+    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    testImplementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     implementation project(':social-common')
@@ -59,7 +88,7 @@ processResources {
 
 asciidoctor {
     baseDirFollowsSourceFile()
-    sourceDir  file("$rootDir/docs/asciidoc")
+    sourceDir file("$rootDir/docs/asciidoc")
 
     attributes 'build-gradle': file('build.gradle'),
             // 'baseDir': "${rootProject.rootDir}",
@@ -67,4 +96,31 @@ asciidoctor {
             'snippets': file('target/snippets'),
             'generate_snippets': file('target/generated-snippets'),
             'generate-source-snippets': file('target/generated-sources/snippets')
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/protobuf'
+            srcDir 'src/main/protocolbuffers'
+            include '**/*.protodevel'
+        }
+        java {
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+    test {
+        proto {
+            srcDir 'src/test/protocolbuffers'
+        }
+        java {
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.18.0'
+    }
 }
