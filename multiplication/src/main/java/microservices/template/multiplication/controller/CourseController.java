@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CourseController {
     @Autowired
-    CourseRepository courseRepo;
+    private CourseRepository courseRepo;
 
     @RequestMapping(value = "/courses/{id}")
     // @RequestMapping(value = "/courses/{id}", produces = "application/x-protobuf")
-    Course customer(@PathVariable Integer id) {
+    public Course customer(@PathVariable Integer id) {
         return courseRepo.getCourse(id);
     }
 }
